@@ -33,7 +33,7 @@ class Islands
         visited[row][col] = true; 
   
         // Recur for all connected neighbours 
-        for (int k = 0; k < 8; ++k) 
+        for (int k = 0; k < rowNbr.length; ++k)
             if (isSafe(M, row + rowNbr[k], col + colNbr[k], visited) ) 
                 DFS(M, row + rowNbr[k], col + colNbr[k], visited); 
     } 
@@ -66,7 +66,7 @@ class Islands
     // Driver method 
     public static void main (String[] args) throws java.lang.Exception 
     { 
-        int M[][]=  new int[][] {{1, 1, 0, 0, 0}, 
+        int M[][] =  new int[][] {{1, 1, 0, 0, 0},
                                  {0, 1, 0, 0, 1}, 
                                  {1, 0, 0, 1, 1}, 
                                  {0, 0, 0, 0, 0}, 
