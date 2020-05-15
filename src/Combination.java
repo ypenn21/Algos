@@ -65,12 +65,95 @@ public class Combination {
         }
     }
 
+    public List<List<Integer>> permute(List nums) {
+       List<List<Integer>> results = new ArrayList<>();
+        permuteHelper(0, results, nums);
+       return results;
+    }
+
+    private void permuteHelper(int start, List<List<Integer>> results, List<Integer> nums) {
+       if ( start==nums.size()-1 ) {
+           results.add(new ArrayList<>(nums));
+       }
+
+       for(int i =start; i<nums.size(); i++) {
+           int iValu = nums.get(i);
+           nums.set(i, nums.get(start));
+           nums.set(start, iValu);
+           permuteHelper(start+1, results, nums);
+           int iValu2 = nums.get(i);
+           nums.set(i, nums.get(start));
+           nums.set(start, iValu2);
+       }
+    }
+
+
     public static void main(String args[]){
+            int arr[] = {1, 2, 3, 4, 5, 6};
+            int r = 3;
+            int n = arr.length;
+            Combination2.printCombination(arr, n, r);
+
         Combination c = new Combination();
         c.combination("abcd".toCharArray());
         System.out.println("solution 2");
         c.combinationEasy("abcd".toCharArray());
+        System.out.println("solution 3 with numbers");
+        Integer [] numArray = {1,2,3,4};
+        List<List<Integer>> results = c.permute(Arrays.asList(numArray));
+        int index =0;
+        for ( List<Integer> result : results) {
+            System.out.print(result);
+            if(index++ == 4) {
+                index=0;
+                System.out.println();
+            }
+        }
 
     }
     
+}
+
+class Combination2 {
+
+    /* arr[]  ---> Input Array
+    data[] ---> Temporary array to store current combination
+    start & end ---> Staring and Ending indexes in arr[]
+    index  ---> Current index in data[]
+    r ---> Size of a combination to be printed */
+    static void combinationUtil(int arr[], int n, int r, int index,
+                                int data[], int i)
+    {
+        // Current combination is ready to be printed, print it
+        if (index == r)
+        {
+            for (int j=0; j<r; j++)
+                System.out.print(data[j]+" ");
+            System.out.println("");
+            return;
+        }
+
+        // When no more elements are there to put in data[]
+        if (i >= n)
+            return;
+
+        // current is included, put next at next location
+        data[index] = arr[i];
+        combinationUtil(arr, n, r, index+1, data, i+1);
+
+        // current is excluded, replace it with next (Note that
+        // i+1 is passed, but index is not changed)
+        combinationUtil(arr, n, r, index, data, i+1);
+    }
+
+    // The main function that prints all combinations of size r
+    // in arr[] of size n. This function mainly uses combinationUtil()
+    static void printCombination(int arr[], int n, int r)
+    {
+        // A temporary array to store all combination one by one
+        int data[]=new int[r];
+
+        // Print all combination using temprary array 'data[]'
+        combinationUtil(arr, n, r, 0, data, 0);
+    }
 }

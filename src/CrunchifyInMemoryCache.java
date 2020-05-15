@@ -1,6 +1,7 @@
-import java.util.ArrayList;
 import org.apache.commons.collections4.MapIterator;
 import org.apache.commons.collections4.map.LRUMap;
+
+import java.util.ArrayList;
 
 /**
  * @author Crunchify.com

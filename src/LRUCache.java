@@ -12,7 +12,7 @@ public class LRUCache {
 	HashMap<Integer, Entry> hashmap;
 	Entry start, end;
 	int LRU_SIZE = 4; // Here i am setting 4 to test the LRU cache
-						// implementation, it can make be dynamic
+						// implementation, it can be dynamic
 	public LRUCache() {
 		hashmap = new HashMap<Integer, Entry>();
 	}

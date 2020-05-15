@@ -38,7 +38,7 @@ class InsertionSort
         int arr[] = {12, 11, 13, 5, 6}; 
   
         InsertionSort ob = new InsertionSort();         
-        ob.sort2(arr);
+        ob.insertionSort(arr);
           
         printArray(arr); 
     }
@@ -47,15 +47,28 @@ class InsertionSort
 
         for(int i = 1; i<arraySort.length;i++) {
             int oneBehind = i-1;
-            int beforeSort = arraySort[i];
-            while( oneBehind>=0 && arraySort[oneBehind] > beforeSort){
+            int current = arraySort[i];
+            while( oneBehind>=0 && arraySort[oneBehind] > current){
                 arraySort[oneBehind+1] = arraySort[oneBehind];
                 oneBehind--;
             }
-            arraySort[oneBehind+1] = beforeSort;
+            arraySort[oneBehind+1] = current;
         }
 
     }
+
+//    public static void insertionSort3(int[] arraySort) {
+//
+//        for(int i=1;i< arraySort.length; i++) {
+//            int oneBehind = i-1;
+//            int current = arraySort[i];
+//            while(oneBehind>=0 && arraySort[oneBehind] > current) {
+//                arraySort[oneBehind]=arraySort[oneBehind+1];
+//                oneBehind--;
+//            }
+//            arraySort[oneBehind+1]=current;
+//        }
+//    }
 
     void sort2(int arr[])
     {

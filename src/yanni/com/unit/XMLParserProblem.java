@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class ParserProblem {
+public class XMLParserProblem {
     // different String node types are START :: END :: DATA
     // tag value is the tag name;
     private static final String STA = "START";

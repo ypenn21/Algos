@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
  
 public class DoublyLinkedListImpl<E> {
@@ -42,8 +44,12 @@ public class DoublyLinkedListImpl<E> {
      * @param element
      */
     public void addFirst(E element) {
+                                   //next
         Node tmp = new Node(element, head, null);
-        if(head != null ) {head.prev = tmp;}
+        // need to change pointer for prev node since tmp will be first now and head will be 2nd.
+        if(head != null ) {
+            head.prev = tmp;
+        }
         head = tmp;
         if(tail == null) { tail = tmp;}
         size++;
@@ -57,6 +63,7 @@ public class DoublyLinkedListImpl<E> {
     public void addLast(E element) {
          
         Node tmp = new Node(element, null, tail);
+        // need to change pointer for next node since tmp will be last now and tail will be 2nd to last.
         if(tail != null) {tail.next = tmp;}
         tail = tmp;
         if(head == null) { head = tmp;}
@@ -117,6 +124,16 @@ public class DoublyLinkedListImpl<E> {
         System.out.println("deleted: "+tmp.element);
         return tmp.element;
     }
+
+    public static void swap(Integer a, Integer b, Map map) {
+        System.out.println("first: "+a+":"+b);
+        Integer tmp=a;
+        a=b;
+        b=tmp;
+        System.out.println("last "+a+":"+b);
+        b=4;
+        map.put(1,100000);
+    }
      
     public static void main(String a[]){
          
@@ -129,5 +146,11 @@ public class DoublyLinkedListImpl<E> {
         dll.removeFirst();
         dll.removeLast();
         dll.iterateBackward();
+        Integer b = 3;
+        Integer c = 4;
+        HashMap<Integer, Integer> myMap = new HashMap<>();
+        myMap.put(1, 5);
+        swap( b,c, myMap );
+        System.out.println("outside the method: " + b+":"+c);
     }
 }
