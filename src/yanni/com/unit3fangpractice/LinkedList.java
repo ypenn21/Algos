@@ -2,6 +2,9 @@ package yanni.com.unit3fangpractice;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LinkedList {
 
     public Node head;
@@ -171,6 +174,64 @@ public class LinkedList {
         linkedList.print();
         linkedList.remove( new Node(5) );
         linkedList.print();
+    }
+
+
+    public boolean hasCycle(Node root) {
+        boolean result = false;
+
+        Node slowNode = root;
+        Node fastNode = root;
+        Node crawl = root;
+        if(crawl==null) {
+            return result;
+        }
+
+        while (slowNode.next!=null && fastNode.next!=null && fastNode.next.next!=null) {
+            slowNode = slowNode.next;
+            fastNode = fastNode.next.next;
+            if(slowNode==fastNode){
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    @Test
+    public void testHasCycle()
+    {
+        Node root = new Node(1);
+        root.next = new Node(2);
+        root.next.next = new Node(3);
+        root.next.next.next = new Node(4);
+        root.next.next.next.next = root;
+
+        System.out.println("does this have cycle: "+hasCycle(root));
+    }
+
+
+    public boolean hasCycleSpaceN(Node root) {
+        boolean result = false;
+
+        Map<Node, Integer> myMap = new HashMap();
+        Node crawl = root;
+        if(crawl==null) {
+            return result;
+        }
+        while (crawl.next!=null) {
+            if(!myMap.containsKey(crawl))
+                myMap.put(crawl, 1);
+            else {
+                result=true;
+                break;
+            }
+            crawl = crawl.next;
+        }
+
+
+        return result;
     }
 
 

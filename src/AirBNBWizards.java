@@ -18,7 +18,7 @@ public class AirBNBWizards {
                 "8 1",
                 "6",
                 "8 7",
-                "5 4",
+                "5 4 9",
                 "4 6",
                 "1",
                 "1 4"
@@ -118,9 +118,8 @@ public class AirBNBWizards {
         Set<Integer> visitedWizards = new HashSet<>();
         List<Integer> wizardConnectionMinimumDistances = new ArrayList<>();
         List<Integer> path2TargetWizard = new ArrayList<>();
-        PriorityQueue< Integer > queue = new PriorityQueue< >((a, b) -> {
-            return getPriority(a)-getPriority(b);
-        });
+        PriorityQueue< Integer > queue = new PriorityQueue< >((a, b) ->
+            Integer.compare(a, b));
         queue.add(currentWizard2Crawler);
         IntStream.range(0, wizardConnections.size())
                 .forEach(i -> {

@@ -73,8 +73,8 @@ public class QuadTree<Key extends Comparable<Key>, Value>  {
     *  test client
     ***************************************************************************/
     public static void main(String[] args) {
-        int M = 1;   // queries
-        int N = 4;   // points
+        int M = 12;   // queries
+        int N = 400;   // points
 
         QuadTree<Integer, String> st = new QuadTree<Integer, String>();
 

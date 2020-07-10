@@ -4,7 +4,7 @@ import java.util.HashMap;
 class TrieNode {
     public TrieNode(String ch)  {
         value = ch;
-        children = new HashMap<>();
+        children = new HashMap<String,TrieNode>();
         bIsEnd = false;
         count = 1;
     }

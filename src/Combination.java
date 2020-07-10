@@ -97,7 +97,7 @@ public class Combination {
         Combination c = new Combination();
         c.combination("abcd".toCharArray());
         System.out.println("solution 2");
-        c.combinationEasy("abcd".toCharArray());
+        c.combinationEasy("abbbcd".toCharArray());
         System.out.println("solution 3 with numbers");
         Integer [] numArray = {1,2,3,4};
         List<List<Integer>> results = c.permute(Arrays.asList(numArray));

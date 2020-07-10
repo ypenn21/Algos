@@ -52,7 +52,7 @@ public class PhraseOverlap2 {
         String result ="";
         TrieNode found = myTrie.findFirstHalf(myTrie.root, "don't", result);
         System.out.println(found.getValue());
-        System.out.println(result);
+//        System.out.println(result);
 
 //        lastPointerToPhrase.getChildren();
 
@@ -65,7 +65,11 @@ public class PhraseOverlap2 {
 }
 
 
-class Trie2 extends Trie {
+class Trie2 {
+
+    protected TrieNode root;
+
+    public Trie2()   {     root = new TrieNode('*'+"");       }
 
     int phrases = 0;
 

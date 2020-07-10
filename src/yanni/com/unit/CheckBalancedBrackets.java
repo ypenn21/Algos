@@ -14,73 +14,61 @@ public class CheckBalancedBrackets {
         System.out.println("balanced:"+checkBalancedReverse(bracketsUnbalanced) );
     }
 
-    private boolean checkBalancedReverse (String checkBalanced ) {
+    public boolean checkBalancedReverse(String brackets) {
+        char [] c= brackets.toCharArray();
 
         boolean result = true;
 
-        char[] characters = checkBalanced.toCharArray();
+        Stack<Character> myBrackets = new Stack<>();
 
-        Stack<Character> stack = new Stack<>();
+        for(int i=c.length-1; i>=0; i--) {
 
-        for(int i=characters.length-1; i >= 0; i--) {
-            Character character = characters[i];
-            if(character.equals(']') || character.equals('}') || character.equals(')')) {
-                stack.add(character);
+            if(c[i]==']' || c[i]==')' || c[i]=='}') {
+                myBrackets.push(c[i]);
             }
 
-            Character chk;
-            if(character.equals('[') || character.equals('{') || character.equals('(')) {
-                if(stack.isEmpty()) {
-                    return false;
-                }
-                chk = stack.pop();
-                if(character.equals('[') && !chk.equals(']')) {
-                    return false;
-                } else if(character.equals('{') && !chk.equals('}')) {
-                    return false;
-                } else if(character.equals('(') && !chk.equals(')')) {
-                    return false;
-                }
+            if(c[i]=='[') {
+                result = myBrackets.pop()==']';
             }
-
+            else if(c[i]=='(') {
+                result = myBrackets.pop()==')';
+            }
+            else if(c[i]=='{') {
+                result = myBrackets.pop()=='}';
+            }
+            if(!result)
+                break;
         }
 
         return result;
-
     }
 
-    private boolean checkBalanced (String checkBalanced ) {
+    public boolean checkBalanced(String brackets) {
+
+        char [] c= brackets.toCharArray();
 
         boolean result = true;
 
-        char[] characters = checkBalanced.toCharArray();
+        Stack<Character> myBrackets = new Stack<>();
 
-        Stack<Character> stack = new Stack<>();
-
-        for(Character character : characters) {
-
-            if(character.equals('[') || character.equals('{') || character.equals('(')) {
-                stack.add(character);
+        for(int i=0; i<c.length; i++) {
+            if(c[i]=='[' || c[i]=='(' || c[i]=='{') {
+                myBrackets.push(c[i]);
             }
 
-            Character chk;
-            if(character.equals(']') || character.equals('}') || character.equals(')')) {
-                if(stack.isEmpty()) {
-                    return false;
-                }
-                chk = stack.pop();
-                if(character.equals(']') && !chk.equals('[')) {
-                    return false;
-                } else if(character.equals('}') && !chk.equals('{')) {
-                    return false;
-                } else if(character.equals(')') && !chk.equals('(')) {
-                    return false;
-                }
+            if(c[i]==']') {
+                result = myBrackets.pop()=='[';
             }
-
+            else if(c[i]==')') {
+                result = myBrackets.pop()=='(';
+            }
+            else if(c[i]=='}') {
+                result = myBrackets.pop()=='{';
+            }
+            if(!result)
+                break;
         }
 
         return result;
-
     }
 }

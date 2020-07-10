@@ -151,10 +151,25 @@ public class PhraseOverlap {
         String phrase6 = "cry no overlap at all";
         String phrase7 = "Those boys don't cry";
 
-        List<String> pharses2 = Arrays.asList(phrase6, phrase7);
+        List<String> phrases2 = Arrays.asList(phrase6, phrase7);
 
         //System.out.println("End Result Should Be: \nThose boys don't cry for me. Argentina is great");
-        System.out.println(phraseOverlap.findOverlappingPharse(pharses2));
+        System.out.println(phraseOverlap.findOverlappingPharse(phrases2));
+
+
+        String phrase11 = "boys don't cry";
+        String phrase12 = "don't cry for me. Argentina";
+        String phrase13 = "don't cry for me. Argentina is great";
+        String phrase14 = "no overlap at all";
+        String phrase18 = "no overlap at alll alll alll";
+        String phrase15 = "Those boys don't cry";
+        String phrase16 = "don't cry for me. I don't want to know is true";
+        String phrase17 = "don't cry for me. Argentina is";
+        String phrase21 = "don't cry for me. Argentina is okay great cool ting";
+        String phrase19 = "don't cry for me. Argentina is awesome yoooo";
+        String phras20 = "don't cry for me. Argentina is awesome foooolllllllllllllll";
+        List<String> phrases3 = Arrays.asList(phrase11, phrase12, phrase13, phrase14, phrase18, phrase15, phrase16, phrase17, phrase21, phrase19, phras20);
+        System.out.println(phraseOverlap.findOverlappingPharse(phrases3));
 
     }
 }
