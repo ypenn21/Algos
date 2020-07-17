@@ -52,7 +52,6 @@ public class FindScenesRepresentedByCharacterArray {
             List<Integer> pos = myPos.get(key);
             Integer start = pos.get(0);
             if(end==0) {
-                // if end is equal to 0 and count is less than 2  add the result=1 to results array
                 if (pos.size() < 2) {
                     isOne = true;
                     results.add(result);
