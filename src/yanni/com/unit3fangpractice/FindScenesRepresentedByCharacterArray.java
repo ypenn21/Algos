@@ -12,7 +12,7 @@ public class FindScenesRepresentedByCharacterArray {
 
     // outputs the length of each scene. Input represents cuts of each scene
     public List<Integer> getSceneLength(List<Character> inputCuts) {
-
+        // basically calculating the intervals for each scene here but will have conditions to recaculate in second for loop
         //build data structures to store the characters and the number of times they appear and the location of their indexes in the array
 //        Map<Character, Integer> myChar = new HashMap<>();
         Map<Character, List <Integer>> myPos = new HashMap<>();
