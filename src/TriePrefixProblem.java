@@ -84,7 +84,8 @@ class Trie {
                if( crawl.isEnd() )
                     prevMatch = level + 1;
             }
-            else  break;
+            else
+                break;
         }
  
         // If the last processed character did not match end of a word,
@@ -103,10 +104,11 @@ public class TriePrefixProblem {
    public static void main(String[] args) {
         Trie dict = new Trie();
         dict.insert("cater");
+        dict.insert("catere");
         dict.insert("base");
         dict.insert("cat");
         dict.insert("area");
-        dict.insert("cater");
+        dict.insert("cat");
         dict.insert("basement");
  
         String input = "caterer";

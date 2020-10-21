@@ -22,6 +22,7 @@ public class Combination {
            index++;
        }
        char[] output = new char[input.length];
+       //overloaded function starts recursion in there
        combination(str, count, 0, output, 0);
     }
 

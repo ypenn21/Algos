@@ -7,6 +7,8 @@ import java.util.stream.IntStream;
 
 public class WizardsNetworking {
 
+
+    // not working fix algo!!!
     public static void main(String[] arguments) {
         List wizards = Arrays.asList(new String[] {
                 "1 2 3",
@@ -21,7 +23,18 @@ public class WizardsNetworking {
                 "1 4"
         });
         List<Integer> shortestPathToTargetWizard = meet(wizards); // Should return {0, 1, 4, 6, 9}.
-//        printIntArray(shortestPathToTargetWizard);
+        System.out.println(shortestPathToTargetWizard);
+        printIntArray(shortestPathToTargetWizard.toArray());
+    }
+
+    private static void printIntArray(Object[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i]);
+            if (i < array.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println();
     }
 
     private static List<Integer> meet(List wizards) {

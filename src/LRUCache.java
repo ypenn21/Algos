@@ -18,8 +18,7 @@ public class LRUCache {
 	}
 
 	public int getEntry(int key) {
-		if (hashmap.containsKey(key)) // Key Already Exist, just update the value and move it to top
-		{
+		if(hashmap.containsKey(key)) {
 			Entry entry = hashmap.get(key);
 			removeNode(entry);
 			addAtTop(entry);
@@ -29,55 +28,58 @@ public class LRUCache {
 	}
 
 	public void putEntry(int key, int value) {
-		if (hashmap.containsKey(key)) // Key Already Exist, just update the value and move it to top
-		{
-			Entry entry = hashmap.get(key);
-			entry.value = value;
-			removeNode(entry);
-			addAtTop(entry);
+		Entry newnode = new Entry();
+		newnode.left = null;
+		newnode.right = null;
+		newnode.value = value;
+		newnode.key = key;
+		if (hashmap.containsKey(key)){
+			removeNode(hashmap.get(key));
+			addAtTop(newnode);
 		} else {
-			Entry newnode = new Entry();
-			newnode.left = null;
-			newnode.right = null;
-			newnode.value = value;
-			newnode.key = key;
-			if (hashmap.size() > LRU_SIZE) // We have reached maxium size so need to make room for new element.
-			{
-				hashmap.remove(end.key);
-				removeNode(end);				
-				addAtTop(newnode);
-
-			} else {
-				addAtTop(newnode);
-			}
-
+			addAtTop(newnode);
 			hashmap.put(key, newnode);
 		}
+
+		if (hashmap.size() > LRU_SIZE) {
+			removeNode(end);
+		}
 	}
+
 	public void addAtTop(Entry node) {
-		node.right = start;
-		node.left = null;
-		if (start != null)
+		if(start==null) {
+			start = node;
+		} else {
 			start.left = node;
-		start = node;
-		if (end == null)
-			end = start;
-	}
-
-	public void removeNode(Entry node) {
-
-		if (node.left != null) {
-			node.left.right = node.right;
-		} else {
-			start = node.right;
-		}
-
-		if (node.right != null) {
-			node.right.left = node.left;
-		} else {
-			end = node.left;
+			if(start.right==null) {
+				end = start;
+			}
+			node.left = null;
+			node.right = start;
+			start = node;
 		}
 	}
+
+	public void removeNode(Entry removeNode) {
+		if (removeNode.left==null) {
+			start = removeNode.right;
+			removeNode.right=null;
+		}
+
+		Entry leftNode = removeNode.left;
+
+		if(removeNode.right==null){
+			end = leftNode;
+			//removeNode.left=null;
+		} else {
+			leftNode.right = removeNode.right;
+			removeNode.right.left = leftNode;
+		}
+		//removeNode=null;
+	}
+
+
+
 	public static void main(String[] args) throws java.lang.Exception {
 		// your code goes here
 		LRUCache lrucache = new LRUCache();

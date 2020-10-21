@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by yannipeng on 2/14/18.
@@ -29,6 +31,41 @@ public class Anagram {
         return true;
     }
 
+    public boolean isPalindrome2(String firstWord) {
+        char[] word1 = firstWord.toCharArray();
+
+        Map<Character, Integer> myMap = new HashMap<>();
+
+        for(Character c: word1) {
+            Integer count = myMap.get(c);
+            if(count==null) {
+                count=1;
+            } else {
+                count++;
+            }
+            myMap.put(c, count);
+        }
+
+        String onlyOneOddNum=null;
+
+        int index=0;
+        System.out.println("my size / 2 = "+myMap.size()/2);
+        for( Character character : myMap.keySet()) {
+            Integer count = myMap.get(character);
+            if(count%2==0) {
+
+            } else if(onlyOneOddNum==null && word1.length%2!=0 && myMap.size()/2==index) {
+                onlyOneOddNum = character+"";
+            } else {
+              return false;
+            }
+            index++;
+        }
+        return true;
+    }
+
+
+
     public boolean isAnagram2(String firstWord, String secondWord) {
         boolean isAnagram = false;
         if(firstWord.length() != secondWord.length()){
@@ -37,20 +74,48 @@ public class Anagram {
             isAnagram = true;
         }
         int[] countFirstLetters = getAlphabetCountArray(firstWord.toCharArray());
-        int[] countSecondLetters = getAlphabetCountArray(secondWord.toCharArray());
-        for(int index=0 ; index<countFirstLetters.length ; index++){
-            if(countFirstLetters[index] != countSecondLetters[index]){
-                return false;
+        char[] countSecLetters = secondWord.toCharArray();
+
+        for( Character let : countSecLetters ){
+            if (countFirstLetters[let] ==0) {
+                isAnagram = false;
+                break;
             }
         }
+
+//        int[] countSecondLetters = getAlphabetCountArray(secondWord.toCharArray());
+//        for(int index=0 ; index<countFirstLetters.length ; index++){
+//            if(countFirstLetters[index] != countSecondLetters[index]){
+//                return false;
+//            }
+//        }
         return isAnagram;
     }
 
+
+    public boolean isPalindrome3(String firstWord) {
+
+        char[] charArray = firstWord.toCharArray();
+
+        int i = 0;
+        boolean isPalind = true;
+
+        for (int back=charArray.length-1; back>charArray.length/2;back--) {
+            if(charArray[back] != charArray[i]) {
+                isPalind=false;
+                break;
+            }
+            i++;
+        }
+        return isPalind;
+
+    }
+
     public static int[] getAlphabetCountArray(char[] characters){
-        int[] countArray = new int[26];
+        int[] countArray = new int[256];
         for(Character character : characters){
-            int index = character-'a';
-            countArray[index]++;
+            //int index = character-'a';
+            countArray[character]++;
         }
         return countArray;
     }
@@ -60,11 +125,22 @@ public class Anagram {
         Anagram anagram = new Anagram();
 
         String word1 = "heyya";
-        String word2 = "ywhey";
+        String word2 = "yahey";
+        System.out.println( anagram.isAnagram2(word1, word2) );
 
 //        System.out.println("isAnagram: "+anagram.isAnagram2(word1,word2));
                                                                             //abba is a even example
-//        System.out.println("isPalindrome:" +anagram.isPalindrome("amoreroma"));
+        System.out.println("isPalindrome:" +anagram.isPalindrome3("amorroama"));
+//        System.out.println("isPalindrome:" +anagram.isPalindrome2("amorroama"));
+//        System.out.println("isPalindrome2:" +anagram.isPalindrome2("aba"));
+//        System.out.println("isPalindrome2:" +anagram.isPalindrome2("aaaaa"));
+        System.out.println("isPalindrome3:" +anagram.isPalindrome3("amorroama"));
+        System.out.println("isPalindrome3:" +anagram.isPalindrome3("aba"));
+        System.out.println("isPalindrome3:" +anagram.isPalindrome3("aaaaa"));
+        System.out.println("isPalindrome3:" +anagram.isPalindrome3("abaaba"));
+        System.out.println("isPalindrome3:" +anagram.isPalindrome3("ababa"));
+        System.out.println("isPalindrome3:" +anagram.isPalindrome3("abada"));
+        System.out.println("isPalindrome3:" +anagram.isPalindrome3("abxba"));
 //        System.out.println("fib number is: "+getNFibNumber(7));
         System.out.println("First Test");
         char[] set1 = {'a', 'b'};

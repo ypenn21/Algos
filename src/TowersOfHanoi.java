@@ -16,7 +16,7 @@ public class TowersOfHanoi {
    public static void main(String[] args) {
        TowersOfHanoi towersOfHanoi = new TowersOfHanoi();
 
-       towersOfHanoi.solve(5, "1", "2", "3");
+       towersOfHanoi.solve(3, "1", "2", "3");
 
 //       String hi = "asdfas";
 //       if ( hi == null || hi.trim().equals("") ){

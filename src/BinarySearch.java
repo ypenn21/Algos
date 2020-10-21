@@ -17,7 +17,6 @@ class BinarySearch
             // If x greater, ignore left half
             if (arr[m] < x)
                 l = m + 1;
- 
             // If x is smaller, ignore right half
             else
                 r = m - 1;
@@ -53,6 +52,42 @@ class BinarySearch
 
         return -1;
     }
+
+
+
+    int binarySearch3(int arr[], int x)
+    {
+        int r = arr.length-1;
+        int l = 0;
+
+        int indexFound = -1;
+
+        while(l<=r) {
+
+            int m = (l+r)/2;
+
+            if( arr[m] == x ) {
+                indexFound=m;
+                break;
+            }
+
+            if( arr[m]> x) {
+                r=m-1;
+            } else {
+                l=m+1;
+            }
+        }
+
+        return indexFound;
+    }
+
+
+
+
+
+
+
+
  
     // Driver method to test above
     public static void main(String args[])
@@ -61,8 +96,9 @@ class BinarySearch
         int arr[] = {2, 3, 4, 10, 40, 60, 80};
         int n = arr.length;
         int x = 4;
-        int result = ob.binarySearch(arr, x);
-        int result2 = ob.binarySearch2(arr, x);
+        int result = ob.binarySearch3(arr, x);
+        int result2 = ob.binarySearch3(arr, x);
+        System.out.println("result2 : "+result2);
         int y = 1 + (4-3)/2;
         System.out.println("Element : "+y);
         if (result == -1)
