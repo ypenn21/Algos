@@ -1,4 +1,9 @@
+import org.junit.jupiter.api.Test;
+
+import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Stack;
 
 // Java program to demonstrate insert operation in binary search tree
 class BinarySearchTree {
@@ -23,9 +28,9 @@ class BinarySearchTree {
     } 
   
     // This method mainly calls insertRec() 
-    void insert(int key) {
+    void insert(final int key) {
         Node returned = insertRec(root, key);
-        System.out.println("the returned node is:"+returned.key);
+        //System.out.println("the returned node is:"+returned.key);
         root = returned;
     }
 
@@ -48,6 +53,8 @@ class BinarySearchTree {
         }
         return isBstRight(root.right, root);
     }
+
+
 
     private boolean isBstLeft(Node node, Node root) {
         /* If the tree is empty, return true */
@@ -136,10 +143,58 @@ class BinarySearchTree {
         printTreeRec(root, 0);
     }
 
+    void printInorder(Node root) {
+
+        if(root==null) {
+            return;
+        }
+
+         Stack<Node> s = new Stack();
+         Node crawl = root;
+         boolean remove= false;
+         s.add(root);
+        while (crawl != null || s.size() > 0)
+        {
+
+            /* Reach the left most Node of the
+            curr Node */
+            while (crawl !=  null)
+            {
+                /* place pointer to a tree node on
+                   the stack before traversing
+                  the node's left subtree */
+                s.push(crawl);
+                crawl = crawl.left;
+            }
+
+            /* Current must be NULL at this point */
+            crawl = s.pop();
+
+            System.out.print(crawl.key + " ");
+
+            /* we have visited the node and its
+               left subtree.  Now, it's right
+               subtree's turn */
+            crawl = crawl.right;
+        }
+    }
+
+
+    void printInorder2(Node root) {
+
+        if(root==null) {
+            return;
+        }
+
+        printInorder2(root.left);
+        System.out.println(root.key);
+        printInorder2(root.right);
+
+    }
     boolean find(int val)  {
 //        System.out.println("Tree:");
 //        System.out.println(" "+root.key);
-        Node myNode = new Node(-1);
+        Node myNode;
         myNode = find(root, val);
         if(myNode!=null)
             return true;
@@ -159,6 +214,22 @@ class BinarySearchTree {
 //            return root;
 //        }
         return find(root.right, findValue);
+    }
+
+int height = 0 ;
+
+    int height(Node root) {
+        if(root == null )
+            return -1;
+        int height = height(root.left);
+        int heightRight = height(root.right);
+        return Math.max(height, heightRight)+1;
+    }
+
+    int size(Node root) {
+        if(root == null )
+            return 0;
+        return size(root.left) + size(root.right)+1;
     }
 
     // A utility function to do inorder traversal of BST
@@ -231,8 +302,226 @@ class BinarySearchTree {
         return result;
     }
 
-    // Driver Program to test above functions 
-    public static void main(String[] args) { 
+    public String deseralize() {
+        String deseralized = deseralize( root );
+
+        return deseralized;
+    }
+
+    public String deseralize( Node node ) {
+        String result = "";
+        if(node==null) {
+            return "null";
+        }
+
+        Stack<Node> myStack = new Stack<>();
+        Node root = node;
+
+//        while(root!=null || !myStack.isEmpty() ) { // lvl order
+//            String element = "";
+//            if(root!=null) {
+//                element = root.key+"";
+//                myStack.add(root);
+//                root = root.left;
+//            } else {
+//                element = "null";
+//                root = myStack.pop();
+//                root = root.right;
+//            }
+//            result += element+"";
+//        }
+
+        while(root!=null || !myStack.isEmpty() ) { // in order
+            String element = "";
+            if(root!=null) {
+//                element = root.key+"";
+                myStack.add(root);
+                root = root.left;
+            } else {
+//                element = "null";
+                root = myStack.pop();
+                element = root.key+"";
+                root = root.right;
+            }
+            result += element+"";
+        }
+
+        //  post order????
+
+//        result = node.key + "|"+ deseralize( node.left ) +"|"+ deseralize( node.right );
+        return result;
+    }
+
+
+    public String deseralize2( Node node ) {
+        String result = "";
+        if(node==null) {
+            return "null";
+        }
+
+        result = node.key + "|"+ deseralize2( node.left ) +"|"+ deseralize2( node.right );
+        return result;
+    }
+
+    public Node seralize( String str ) {
+        String [] array = str.split("\\|");
+//        Queue<Node> q
+//                = new LinkedList<>();
+
+//        Node rooot = new Node(Integer.parseInt(array[0]));
+//        q.offer(rooot);
+//        int ind = 0;
+
+//        while(!q.isEmpty()) {
+//            Node node = q.poll();
+//            ind++;
+//            if(!array[ind].equals("null")) {
+//                node.left = new Node(Integer.parseInt(array[ind]));
+//                q.offer(node.left);
+//                continue;
+//            }
+//            else
+//                node.left = null;
+//
+//            ind++;
+//            if(!array[ind].equals("null")) {
+//                node.right = new Node(Integer.parseInt(array[ind]));
+//                q.offer(node.right);
+//            }
+//            else
+//                node.right = null;
+//        }
+
+
+        return serialize( array );
+    }
+
+    int indexSerialize = 0;
+
+
+    // other way to solve it by using a list and removing items from list as you traverse..
+    public Node serialize( String [] array ) {
+        if(array[indexSerialize].equals("null")) {
+            return null;
+        }
+        Node rooot = new Node(Integer.parseInt(array[indexSerialize]));
+
+        indexSerialize=indexSerialize+1;
+        rooot.left = serialize(array);
+        indexSerialize++;
+        rooot.right = serialize(array);
+
+        return rooot;
+    }
+
+    @Test
+    public void testSeralize() {
+        BinarySearchTree tree = new BinarySearchTree();
+
+        /* Let us create following BST
+               5
+            /     \
+           3       6
+         /  \       \
+        2    4       7
+       /              \
+      1                13
+                      /
+                    11      */
+        tree.insert(5);
+        tree.insert(6);
+        tree.insert(7);
+//        tree.insert(8);
+//        tree.insert(9);
+//        tree.insert(13);
+        tree.insert(13);
+        tree.insert(11);
+        tree.insert(3);
+        tree.insert(2);
+        tree.insert(1);
+        tree.insert(4);
+
+        String bstStr = tree.deseralize();
+        System.out.println(bstStr);
+        Node bst = tree.seralize(bstStr);
+        assert(bst.key==5);
+
+    }
+
+
+
+
+    @Test
+    public void testDeseralize() {
+        BinarySearchTree tree = new BinarySearchTree();
+
+        /* Let us create following BST
+               5
+            /     \
+           3       6
+         /  \       \
+        2    4       7
+       /              \
+      1                13
+                      /
+                    11      */
+        tree.insert(5);
+        tree.insert(6);
+        tree.insert(7);
+//        tree.insert(8);
+//        tree.insert(9);
+//        tree.insert(13);
+        tree.insert(13);
+        tree.insert(11);
+        tree.insert(3);
+        tree.insert(2);
+        tree.insert(1);
+        tree.insert(4);
+
+        String bst = tree.deseralize();
+        System.out.println(bst);
+
+    }
+
+
+    public void bsTraverisal() {
+        Node crawl = root;
+        Queue<Node> queue = new LinkedList<Node>();
+
+        queue.add(crawl);
+
+        while(!queue.isEmpty()) {
+            Node node = queue.poll();
+            System.out.println(node.key);
+            if(node.left!=null)
+                queue.add(node.left);
+            if(node.right!=null)
+                queue.add(node.right);
+        }
+    }
+
+    @Test
+    public void testBsTraverisal() {
+
+        BinarySearchTree tree = new BinarySearchTree();
+        tree.insert(5);
+        tree.insert(6);
+        tree.insert(7);
+        tree.insert(13);
+        tree.insert(11);
+        tree.insert(3);
+        tree.insert(2);
+        tree.insert(1);
+        tree.insert(4);
+//        tree.printInorder2(tree.root);
+//        tree.bsTraverisal();
+        tree.printInorder(tree.root);
+
+    }
+
+    // Driver Program to test above functions
+    @Test
+    public void testBSTInsert(String[] args) {
         BinarySearchTree tree = new BinarySearchTree(); 
   
         /* Let us create following BST 

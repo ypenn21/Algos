@@ -125,5 +125,21 @@ public class MaxHeap {
 
         maxHeap.print();
         System.out.println("The max val is " + maxHeap.extractMax());
+
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
+
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
+        System.out.println("The max val is " + maxHeap.extractMax());
     }
 }

@@ -58,6 +58,7 @@ public class CrosswordPuzzle {
             row += 1;
         }
 
+        // find next position where you can place a character
         while(row < grid.length && !grid[row][col].equals("-")){
             col += 1;
             if(col >= grid.length){
@@ -71,6 +72,8 @@ public class CrosswordPuzzle {
         }
 
         boolean isPlacedHoz = false, isPlacedVer = false;
+
+        // this is to check if you can match anything vertical or horizontal with some of the other words already filled with words
         while(row - 1 >= 0 && !grid[row - 1][col].equals("+")){
           row -= 1;
         }
@@ -105,7 +108,7 @@ public class CrosswordPuzzle {
               if(puzzleSolved(grid, remainingWords, word, row, col + 1)){
                    return true;
                 }
-            }
+          }
           if(isPlacedHoz){
             clearHorizontal(grid, row, col, pword);
           }

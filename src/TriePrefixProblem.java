@@ -1,5 +1,8 @@
+import org.junit.jupiter.api.Test;
+
 import java.util.HashMap;
- 
+import java.util.Map;
+
 // Trie Node, which stores a character and the children in a HashMap
 class TrieNode {
     public TrieNode(String ch)  {
@@ -54,6 +57,25 @@ class Trie {
         crawl.setIsEnd(true);
         crawl.wholeString = word;
     }
+
+    public void traverse() {
+        System.out.println(root.getValue());
+        Map<String,TrieNode> map = root.getChildren();
+        for (Map.Entry<String,TrieNode> entry : map.entrySet()) {
+            System.out.print(entry.getValue().getValue()+"");
+            traverse(entry.getValue());
+            System.out.println("");
+        }
+    }
+
+    public void traverse(TrieNode node) {
+        Map<String,TrieNode> map = node.getChildren();;
+        for (Map.Entry<String,TrieNode> entry : map.entrySet()) {
+            System.out.print(entry.getValue().getValue()+"");
+            traverse(entry.getValue());
+        }
+
+    }
  
     // The main method that finds out the longest string 'input'
     public String getMatchingPrefix(String input)  {
@@ -97,11 +119,9 @@ class Trie {
     }
  
     protected TrieNode root;
-}
- 
-// Testing class
-public class TriePrefixProblem {
-   public static void main(String[] args) {
+
+    @Test
+    public void testTraverse() {
         Trie dict = new Trie();
         dict.insert("cater");
         dict.insert("catere");
@@ -110,27 +130,40 @@ public class TriePrefixProblem {
         dict.insert("area");
         dict.insert("cat");
         dict.insert("basement");
- 
+        dict.traverse();
+    }
+
+    @Test
+    public void testGetMatchingPrefix() {
+        Trie dict = new Trie();
+        dict.insert("cater");
+        dict.insert("catere");
+        dict.insert("base");
+        dict.insert("cat");
+        dict.insert("area");
+        dict.insert("cat");
+        dict.insert("basement");
+
         String input = "caterer";
         System.out.print(input + ":   ");
-        System.out.println(dict.getMatchingPrefix(input));              
- 
+        System.out.println(dict.getMatchingPrefix(input));
+
         input = "basement";
         System.out.print(input + ":   ");
-        System.out.println(dict.getMatchingPrefix(input));                      
- 
+        System.out.println(dict.getMatchingPrefix(input));
+
         input = "are";
         System.out.print(input + ":   ");
-        System.out.println(dict.getMatchingPrefix(input));              
- 
+        System.out.println(dict.getMatchingPrefix(input));
+
         input = "arex";
         System.out.print(input + ":   ");
-        System.out.println(dict.getMatchingPrefix(input));              
- 
+        System.out.println(dict.getMatchingPrefix(input));
+
         input = "basemexz";
         System.out.print(input + ":   ");
-        System.out.println(dict.getMatchingPrefix(input));                      
- 
+        System.out.println(dict.getMatchingPrefix(input));
+
         input = "xyz";
         System.out.print(input + ":   ");
         System.out.println(dict.getMatchingPrefix(input));

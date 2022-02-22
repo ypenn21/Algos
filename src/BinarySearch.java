@@ -62,14 +62,14 @@ class BinarySearch
 
         int indexFound = -1;
 
-        while(l<=r) {
+        while(l<r) {
 
-            int m = (l+r)/2;
+            int m = l+(r-l)/2;
 
-            if( arr[m] == x ) {
-                indexFound=m;
-                break;
-            }
+//            if( arr[m] == x ) {
+//                indexFound=m;
+//                break;
+//            }
 
             if( arr[m]> x) {
                 r=m-1;
@@ -78,8 +78,37 @@ class BinarySearch
             }
         }
 
-        return indexFound;
+        return l;
     }
+    int binarySearch5(int arr[], int x)
+    {
+        int r = arr.length-1;
+        int l =0;
+
+        int found = -1;
+
+        while(l<r) {
+            int m = (r + l) / 2;
+            if(arr[m] == x) {
+                found = m;
+                break;
+            }
+            if(arr[m] > x) {
+                r = m -1;
+            } else if (arr[m] < x ) {
+                l = m + 1;
+            }
+        }
+
+        return  l;
+    }
+
+
+
+
+
+
+
 
 
 
@@ -98,9 +127,12 @@ class BinarySearch
         int x = 4;
         int result = ob.binarySearch3(arr, x);
         int result2 = ob.binarySearch3(arr, x);
+        int result3 = ob.binarySearch5(arr, x);
+        System.out.println("result : "+result);
+        System.out.println("result3 : "+result3);
         System.out.println("result2 : "+result2);
-        int y = 1 + (4-3)/2;
-        System.out.println("Element : "+y);
+//        int y = 1 + (4-3)/2;
+//        System.out.println("Element : "+y);
         if (result == -1)
             System.out.println("Element not present");
         else

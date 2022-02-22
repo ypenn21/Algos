@@ -130,6 +130,7 @@ public class PrioritySortAndLinkedList {
         });
         List<Integer> myList2 = new ArrayList<>();
         myList2.addAll(myList);
+        // check function getPriority
         myList2.sort((a, b)->{return getPriority(a)-getPriority(b);});
         System.out.println(myList2.toString());
         PriorityQueue< Integer > queue = new PriorityQueue< >((a, b) -> {
@@ -143,6 +144,8 @@ public class PrioritySortAndLinkedList {
             myList.set(i, queue.poll());
             i++;
         }
+        System.out.println(myList.toString());
+        myList.sort((a, b)-> {return a-b;});
         System.out.println(myList.toString());
     }
 
@@ -169,7 +172,10 @@ public class PrioritySortAndLinkedList {
         int a1[][] = {{1, 2, 3},
                 {4, 5, 6},
                 {7, 8, 9}};
-        rotate(a1, 3);
+        int[][] result1 = new int [0] [0];
+        int[][] result2 = new int [0] [0];
+        // 0,0  1,0  0,1  1,1
+        result1 = rotate(a1, 3);
         // should return:
         // [[7, 4, 1],
         //  [8, 5, 2],
@@ -179,7 +185,8 @@ public class PrioritySortAndLinkedList {
                 {5, 6, 7, 8},
                 {9, 10, 11, 12},
                 {13, 14, 15, 16}};
-         rotate(a2, 4);
+        //result2 = rotate(a2, 4);
+        System.out.println(result1+" "+result2);
         // should return:
         // [[13, 9, 5, 1],
         //  [14, 10, 6, 2],
@@ -193,18 +200,33 @@ public class PrioritySortAndLinkedList {
         // and n/2 + n%2 gives us ceiling(n/2)
         for (int i = 0; i < n / 2 + n % 2; i++) {
             for (int j = 0; j < n / 2; j++) {
+                // 4 corners rotate the corners
                 int[] tmp = new int[4];
                 int currentI = i;
                 int currentJ = j;
-                for (int k = 0; k < 4; k++) {
+                for (int k = 0; k < 4; k++){
                     tmp[k] = a[currentI][currentJ];
+                    //I  = row &  J = col
+//                   rotateSub(int i, int j, int n) {
+//                      int[] newCoordinates = new int[2];
+//                      newCoordinates[0] = j;
+//                      newCoordinates[1] = n - 1 - i;
+//                      return newCoordinates;
+//                   }
+                    // this for loop is building the tmp array which has 4 positions you want to rotate
                     int[] newCoordinates = rotateSub(currentI, currentJ, n);
-                    currentI = newCoordinates[0]; currentJ = newCoordinates[1];
+                    currentI = newCoordinates[0];
+                    currentJ = newCoordinates[1];
                 }
+
                 for (int k = 0; k < 4; k++) {
+                    //System.out.println("(k + 3) % 4 ="+((k + 3) % 4));
+                    // 3, 0, 1, 2
                     a[currentI][currentJ] = tmp[(k + 3) % 4];
+                    System.out.println("currentI:"+currentI+" currentJ:"+currentJ);
                     int[] newCoordinates = rotateSub(currentI, currentJ, n);
-                    currentI = newCoordinates[0]; currentJ = newCoordinates[1];
+                    currentI = newCoordinates[0];
+                    currentJ = newCoordinates[1];
                 }
             }
         }

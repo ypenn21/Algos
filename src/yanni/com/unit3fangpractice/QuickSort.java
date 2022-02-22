@@ -75,12 +75,11 @@ class QuickSort
 	public void sort2(int arr[], int low, int high) {
 
 		if(low<high) {
-
+			System.out.println("low:"+low+" high:"+high);
 			int partition = partition2(arr, low, high);
-
+			System.out.println(" partition: "+high);
 			sort2(arr, partition+1, high);
 			sort2(arr, low, partition-1);
-
 		}
 	}
 
@@ -106,18 +105,6 @@ class QuickSort
 
 		return pivot;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 	// Driver program 
 	public static void main(String args[]) 

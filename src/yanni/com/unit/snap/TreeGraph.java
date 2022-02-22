@@ -16,19 +16,23 @@ public class TreeGraph {
     }
 
 
+    //Integer largeChildren = 0; this works too
     public int findLargest(GraphNode node) {
         if(node.children==null) {
             return node.val;
         }
         List<GraphNode> nodes = node.children;
         Integer largest = node.val;
-
+        Integer largeChildren = 0;
 
         for(GraphNode graphNode:nodes) {
             if(largest< graphNode.val){
                 largest = graphNode.val;
             }
-            largest = findLargest(graphNode);
+            largeChildren = findLargest(graphNode);
+            if(largeChildren > largest) {
+                largest = largeChildren;
+            }
         }
 
         return largest;
@@ -37,16 +41,24 @@ public class TreeGraph {
     @Test
     public void testFindLargest() {
 
+        //      1 node tree
+        //  /   |   \
+        // 2    3    3 node 3
+        //         / |
+        //       11  5  node 5
+        //         /   \
+        //        10   10
+
         GraphNode tree = new GraphNode(1);
         tree.children.add(new GraphNode(2));
-        tree.children.add(new GraphNode(2));
-        GraphNode tree3 = new GraphNode(3);
-        tree3.children.add(new GraphNode(4));
-        GraphNode tree5=new GraphNode(5);
-        tree5.children.add(new GraphNode(10));
-        tree5.children.add(new GraphNode(10));
-        tree3.children.add(tree5);
-        tree.children.add(tree3);
+        tree.children.add(new GraphNode(3));
+        GraphNode node3 = new GraphNode(3);
+        tree.children.add(node3);
+        node3.children.add(new GraphNode(11));
+        GraphNode node5=new GraphNode(5);
+        node5.children.add(new GraphNode(10));
+        node5.children.add(new GraphNode(10));
+        node3.children.add(node5);
 
         Integer largest = findLargest(tree);
         System.out.println(largest);

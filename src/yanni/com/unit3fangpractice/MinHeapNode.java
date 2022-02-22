@@ -1,7 +1,10 @@
 package yanni.com.unit3fangpractice;// Java program to merge k sorted
 // arrays of size n each. 
-  
-// A min heap node 
+
+import java.util.ArrayList;
+import java.util.List;
+
+// A min heap node
 class MinHeapNode 
 { 
     int element; // The element to be stored 
@@ -153,8 +156,37 @@ class MinHeap
                 {1, 9, 20, 1000}, 
                 {23, 34, 90, 2000}}; 
   
-        System.out.println("Merged array is :"); 
-  
+        System.out.println("Merged array is :");
+        List<String> resultList = new ArrayList();
+        resultList.add("hi1");
+        resultList.add("hi2");
+        String[] myStrs= resultList.toArray(new String[0]);
+        System.out.println(myStrs[0]);
+        System.out.println(myStrs[1]);
         mergeKSortedArrays(arr,arr.length); 
     } 
-}; 
+};
+
+// type 1 type 2 index
+// [2, 1]
+// 2 means get 1 means set
+// 1 means get true to the right of the given index
+// initial array [false, false ] = boolean [] results
+// if ( 2d[i][0] == 1  )
+//      results[2d[i][1]]=true;
+// else if (2d[i][0] == 2 ) {
+//       int ind = 2d[i][1];
+//       while(i < results.length) {
+//              if ( results[ind] == true ) {
+//                  results[2d[i][1]] = true;
+//
+//                  break;
+//               }
+//              ind++;
+//
+//       }
+//       return results;
+// }
+// Above-Average Subarrays
+
+

@@ -1,4 +1,5 @@
 public class Singleton {
+
     private String something;
 
     private static Singleton single;

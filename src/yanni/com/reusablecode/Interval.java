@@ -62,7 +62,7 @@ public class Interval<Key extends Comparable<Key>> {
 
     // test client
     public static void main(String[] args) {
-        int n = Integer.parseInt(args[0]);
+        int n = 3;
 
         Interval<Integer> a = new Interval<Integer>(5, 17);
         Interval<Integer> b = new Interval<Integer>(5, 17);

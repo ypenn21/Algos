@@ -6,9 +6,13 @@ import java.util.Stack;
 public class LCA {
 
     public static class TreeNode {
-        int value;
-        TreeNode left;
-        TreeNode right;
+        public int value;
+        public TreeNode left;
+        public TreeNode right;
+
+        public TreeNode(int data) {
+            this.value = data;
+        }
 
         public TreeNode(int data, TreeNode l, TreeNode r) {
             this.value = data;
@@ -132,7 +136,7 @@ public class LCA {
     // - The head node of the resulting tree
     public static TreeNode createTree(HashMap<Integer, int[]> mapping, int headValue) {
         TreeNode head = new TreeNode(headValue, null, null);
-        HashMap<Integer, TreeNode> nodes = new HashMap<Integer, TreeNode>();
+        HashMap<Integer, TreeNode> nodes = new HashMap<>();
         nodes.put(headValue, head);
         for(Integer key : mapping.keySet()) {
             int[] value = mapping.get(key);

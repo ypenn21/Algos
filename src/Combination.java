@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.Test;
+
 import java.util.*;
 
 public class Combination {
@@ -26,7 +28,7 @@ public class Combination {
        combination(str, count, 0, output, 0);
     }
 
-    private void combination(char input[],int count[],int startPos, char output[],int end){
+    private void combination(char input[],int count[],int startPos, char output[],int end) {
         print(output, end);
         for(int i=startPos; i < input.length; i++){
             if (count[i] == 0) {
@@ -39,8 +41,8 @@ public class Combination {
         }
     }
 
-    private void print(char result[],int pos){
-        for(int i=0; i < pos; i++){
+    private void print(char result[],int end){
+        for(int i=0; i < end; i++){
             System.out.print(result[i] + " ");
         }
         System.out.println();
@@ -54,21 +56,37 @@ public class Combination {
 
     private void combinationEasy(char[] input, int pos, List<Character> r) {
 
-        r.forEach(r1 -> System.out.print(r1 + " "));
-        System.out.println();
+       if(isSumResults ( r, 7 )){
+           r.forEach(r1 -> System.out.print(r1 + " "));
+           System.out.println();
+        } else {
+           r.forEach(r1 -> System.out.print(r1 + " "));
+           System.out.println();
+       }
         for (int i = pos; i < input.length; i++) {
+            // only happens if there are duplicate letters, characters, or numbers in the input. this would skip that dup result
             if (i != pos && input[i] == input[i-1]) {
                 continue;
             }
             r.add(input[i]);
-            combinationEasy(input, i + 1, r);
+            combinationEasy(input, pos+1, r);
             r.remove(r.size() - 1);
         }
     }
 
+
+    public boolean isSumResults ( List<Character> candidates, int target ) {
+        int sum = 0;
+        for(int i=0;i<candidates.size();i++) {
+            Integer tmp = Integer.parseInt(candidates.get(i)+"");
+            sum+=tmp;
+        }
+        return (target==sum);
+    }
+
     public List<List<Integer>> permute(List nums) {
        List<List<Integer>> results = new ArrayList<>();
-        permuteHelper(0, results, nums);
+       permuteHelper(0, results, nums);
        return results;
     }
 
@@ -83,9 +101,68 @@ public class Combination {
            nums.set(start, iValu);
            permuteHelper(start+1, results, nums);
            int iValu2 = nums.get(i);
+           //reset
            nums.set(i, nums.get(start));
            nums.set(start, iValu2);
        }
+
+//       [1, 2, 3, 4][1, 2, 4, 3][1, 3, 2, 4][1, 3, 4, 2][1, 4, 3, 2]
+//[1, 4, 2, 3][2, 1, 3, 4][2, 1, 4, 3][2, 3, 1, 4][2, 3, 4, 1]
+//[2, 4, 3, 1][2, 4, 1, 3][3, 2, 1, 4][3, 2, 4, 1][3, 1, 2, 4]
+//[3, 1, 4, 2][3, 4, 1, 2][3, 4, 2, 1][4, 2, 3, 1][4, 2, 1, 3]
+//[4, 3, 2, 1][4, 3, 1, 2][4, 1, 3, 2][4, 1, 2, 3]
+
+
+        //   with these two takes taken out:
+        //   nums.set(i, nums.get(start));
+        //   nums.set(start, iValu2);
+//        [1, 2, 3, 4][1, 2, 4, 3][1, 4, 2, 3][1, 4, 3, 2][1, 2, 3, 4]
+//[1, 2, 4, 3][2, 1, 4, 3][2, 1, 3, 4][2, 3, 1, 4][2, 3, 4, 1]
+//[2, 1, 4, 3][2, 1, 3, 4][3, 1, 2, 4][3, 1, 4, 2][3, 4, 1, 2]
+//[3, 4, 2, 1][3, 1, 2, 4][3, 1, 4, 2][2, 1, 4, 3][2, 1, 3, 4]
+//[2, 3, 1, 4][2, 3, 4, 1][2, 1, 4, 3][2, 1, 3, 4]
+    }
+
+    public static void findCombinationsSameSizeInput(int[] input) {
+
+        findCombsSameSizeInput(input, 0);
+    }
+
+    public static void findCombsSameSizeInput(int[] input, int start) {
+        if ( start==input.length-1 ) {
+            for(Integer num : input) {
+                System.out.print(num+" ");
+            }
+            System.out.println("");
+        }
+
+        // start is constant only changes by adding 1 in the recursion
+       for(int i=start; i < input.length;i++) {
+            int tmp = input[i];
+            //i is dynamic and incrementing by 1 in the for loop
+           input[i] = input[start];
+           input[start] = tmp;
+           findCombsSameSizeInput(input, start+1);
+           int tmp2 = input[i];
+           input[i] = input[start];
+           input[start] = tmp2;
+       }
+
+    }
+
+
+    @Test
+    public void test() {
+        int[]numArray = {1,2,3,4};
+        findCombinationsSameSizeInput(numArray);
+        for(int i=0;i<numArray.length;i++)
+            System.out.print(numArray[i]+" ");
+    }
+
+    @Test
+    public void testCombinationEasy() {
+        Combination c = new Combination();
+        c.combinationEasy("3241".toCharArray());
     }
 
 
@@ -96,9 +173,9 @@ public class Combination {
             Combination2.printCombination(arr, n, r);
 
         Combination c = new Combination();
-        c.combination("abcd".toCharArray());
+//        c.combination("abcd".toCharArray());
         System.out.println("solution 2");
-        c.combinationEasy("abbbcd".toCharArray());
+        c.combinationEasy("2367".toCharArray());
         System.out.println("solution 3 with numbers");
         Integer [] numArray = {1,2,3,4};
         List<List<Integer>> results = c.permute(Arrays.asList(numArray));

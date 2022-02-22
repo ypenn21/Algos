@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import java.util.stream.IntStream;
 
 public class WizardsNetworking {
@@ -22,9 +23,12 @@ public class WizardsNetworking {
                 "1",
                 "1 4"
         });
-        List<Integer> shortestPathToTargetWizard = meet(wizards); // Should return {0, 1, 4, 6, 9}.
+        List<Integer> shortestPathToTargetWizard = meet(wizards); // Should return {0, 1, 6, 9}.
         System.out.println(shortestPathToTargetWizard);
+        Object[] array = shortestPathToTargetWizard.toArray();
         printIntArray(shortestPathToTargetWizard.toArray());
+        Stack<Integer> stack = getPath(array);
+        System.out.println(stack);
     }
 
     private static void printIntArray(Object[] array) {
@@ -35,6 +39,19 @@ public class WizardsNetworking {
             }
         }
         System.out.println();
+    }
+
+    private static Stack getPath(Object[] array) {
+        int index=array.length-1;
+        Stack<Integer> stack = new Stack<>();
+        while(index!=0) {
+//            System.out.println(index);
+            stack.add(index);
+            index= (Integer) array[index];
+        }
+        stack.add(index);
+//        System.out.println(index);
+        return stack;
     }
 
     private static List<Integer> meet(List wizards) {
@@ -53,7 +70,6 @@ public class WizardsNetworking {
         pathToN.set(0,0);
         toBeProcessed.add(0);
         Integer currentWiz = findMinDistanceWizardToProcess(toBeProcessed, shortestDistance, wizardsVisted);
-        int index = 0;
         while(currentWiz != wizards.size()-1 && wizardsVisted.size()<wizards.size()) {
             wizardsVisted.add(currentWiz);
             String wizard = (String) wizards.get(currentWiz);
@@ -68,7 +84,6 @@ public class WizardsNetworking {
                     shortestDistance.set(toProcess, distanceBetweenWizards);
                     pathToN.set(toProcess, currentWiz);
                 }
-
             }
             currentWiz = findMinDistanceWizardToProcess(toBeProcessed, shortestDistance, wizardsVisted);
         }
@@ -89,6 +104,5 @@ public class WizardsNetworking {
         }
         toBeProcessed.remove(minDisWiz);
         return minDisWiz;
-
     }
 }

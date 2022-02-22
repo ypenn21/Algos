@@ -76,7 +76,7 @@ class Bipartite
             {1, 0, 1, 0} 
         }; 
         Bipartite b = new Bipartite(); 
-        if (b.isBipartite(G, 0)) 
+        if (b.isBipartite(G, 1))
         System.out.println("Yes"); 
         else
         System.out.println("No"); 

@@ -74,6 +74,35 @@ public class QueueImplementation
 
         }
 
+        public int getLast()
+        {
+            copyStack2ToStack1();
+            return this.stack1.peek();
+        }
+
+        private void copyStack2ToStack1(){
+            int x;
+            /* If both stacks are empty then error */
+            if(this.stack1.isEmpty() && this.stack2.isEmpty() )
+            {
+                System.out.println("Q is empty");
+                System.exit(0);
+            }
+
+        /* Move elements from stack1 to stack 2 only if
+        stack2 is empty */
+            if(this.stack1.isEmpty())
+            {
+                while(!this.stack2.isEmpty())
+                {
+                    x = pop(this.stack2);
+                    push(this.stack1, x);
+
+                }
+            }
+
+        }
+
 
     }
 
@@ -88,6 +117,7 @@ public class QueueImplementation
         q.enQueue( 3);
         System.out.print( q.getNext()+" ");
         /* Dequeue items */
+        System.out.print( q.getLast()+" ");
         System.out.print( q.deQueue()+" ");
         System.out.print( q.deQueue()+" ");
         System.out.println( q.deQueue()+" ");

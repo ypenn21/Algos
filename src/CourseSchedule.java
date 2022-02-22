@@ -40,13 +40,13 @@ public class CourseSchedule {
         IntStream.range(0, courseTimes.length).forEach(index ->{
             courseTimeNCount.put( courseTimes[index], 1);
         });
-        List myList = new ArrayList();
-        schedule.findAllCombination(courseTimes, courseTimeNCount, 0, 0, myList);
-        System.out.println(myList.toString());
-        System.out.println("solution 2");
-        List r = new ArrayList<>();
-        schedule.combinationEasy(courseTimes, 0, r);
-        System.out.println(r);
+//        List myList = new ArrayList();
+//        schedule.findAllCombination(courseTimes, courseTimeNCount, 0, 0, myList);
+//        System.out.println(myList.toString());
+//        System.out.println("solution 2");
+//        List r = new ArrayList<>();
+//        schedule.combinationEasy(courseTimes, 0, r);
+//        System.out.println(r);
     }
 
     public class CourseTimeNCount {

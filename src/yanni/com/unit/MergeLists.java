@@ -61,7 +61,7 @@ class MergeLists
         {
 
         /* if either list runs out,
-        use the other list */
+        use the other list points to the rest of the other linked list node or nodes (if there are more than 1 before it reaches null) */
             if(headA == null)
             {
                 tail.next = headB;
@@ -105,6 +105,28 @@ class MergeLists
                llist1: 5->10->15,
                llist2: 2->3->20
         */
+
+        //List 1
+        List<String> namesList = Arrays.asList( "alex", "brian", "charles");
+
+        //List 2
+        ArrayList<String> otherList = new ArrayList<>();
+
+        List<Integer> myList = new ArrayList(){
+            {
+                add(2);
+                add(9);
+                add(3);
+                add(8);
+                add(1);
+            }
+        };
+        myList.sort(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1-o2;
+            }
+        });
         MergeLists llist1 = new MergeLists();
         MergeLists llist2 = new MergeLists();
 
@@ -120,7 +142,7 @@ class MergeLists
 
 
         llist1.head = MergeLists.sortedMerge(llist1.head,
-                                            llist2.head);
+                                            null);
         llist1.printList();
 
     }
