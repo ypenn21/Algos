@@ -42,6 +42,40 @@ public class Altruist {
         return result;
     }
 
+    public List<List<String>> securityFinal(String [][] input) {
+        Set<String> noExit = new HashSet<>();
+        Set<String> noEnter = new HashSet<>();
+        Set<String> inRoom = new HashSet<>();
+
+        for(int i=0; i<input.length; i++) {
+            String[] br = input[i];
+            if (br[ACTION].equals("enter")) {
+                if(inRoom.contains(br[NAME])) {
+                    noExit.add(br[NAME]);
+                    continue;
+                }
+                inRoom.add(br[NAME]);
+            } else if (br[ACTION].equals("exit")) {
+                if(!inRoom.contains(br[NAME])) {
+                    noEnter.add(br[NAME]);
+                }
+                inRoom.remove(br[NAME]);
+            }
+        }
+
+        noExit.addAll(inRoom);
+        List<List<String>> result = new ArrayList();
+        result.add(new ArrayList(noExit));
+        result.add(new ArrayList(noEnter));
+        System.out.print("no exit: " + noExit);
+        System.out.println(" no entry: " + noEnter);
+        System.out.println("-------------------------");
+        return result;
+    }
+
+
+
+
 
     public List<List<String>> security2(String [][] input) {
         Stack<String> noExit = new Stack<>();
@@ -126,6 +160,71 @@ public class Altruist {
         System.out.println("no entry: " + noEntryResult);
         System.out.println("no exit: " + noExitResult);
         System.out.println("-------------------------");
+    }
+
+
+    @Test
+    public void testSecurityFinal() {
+        String[][] input = {{"Martha", "exit"},
+                {"Paul", "enter"},
+                {"Martha", "enter"},
+                {"Martha", "exit"},
+                {"Jennifer", "enter"},
+                {"Paul", "enter"},
+                {"Curtis", "exit"},
+                {"Curtis", "enter"},
+                {"Paul", "exit"},
+                {"Martha", "enter"},
+                {"Martha", "exit"},
+                {"Jennifer", "exit"},
+                {"Paul", "enter"},
+                {"Paul", "enter"},
+                {"Martha", "exit"},
+        };
+        securityFinal(input);
+
+        String[][] input1 = {{"Paul", "enter"},
+                {"Paul", "enter"},
+                {"Paul", "exit"}
+        };
+        securityFinal(input1);
+
+        String[][] input2 = {{"Paul", "enter"},
+                {"Paul", "exit"},
+                {"Paul", "exit"}
+        };
+        securityFinal(input2);
+
+        String[][] input3 = {{"Paul", "enter"},
+                {"Paul", "exit"},
+                {"Paul", "exit"},
+                {"Paul", "enter"},
+                {"Martha", "enter"},
+                {"Martha", "exit"}
+        };
+        securityFinal(input3);
+
+        String[][] input4 = {{"Paul", "enter"},
+                {"Paul", "exit"}
+        };
+        securityFinal(input4);
+
+        String[][] input5 = {{"Paul", "enter"},
+                {"Paul", "enter"},
+                {"Paul", "exit"},
+                {"Paul", "exit"}
+        };
+        securityFinal(input5);
+    }
+
+    @Test
+    public void testSecurityFinal2() {
+        String[][] input5 = {{"Paul", "enter"},
+                {"Paul", "enter"},
+                {"Paul", "exit"},
+                {"Paul", "exit"}
+        };
+        securityFinal(input5);
     }
 
     @Test
